@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/configureStore';
-import {Provider} from 'react-redux'
+import {Provider} from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import {loadCourses} from './actions/courseActions';
+import {loadAuthors} from './actions/authorActions';
 import registerServiceWorker from './registerServiceWorker';
 import App from './components/App';
 
 const store = configureStore();
+store.dispatch(loadCourses());
+store.dispatch(loadAuthors());
 
 ReactDOM.render (
   <Provider store={store}>
