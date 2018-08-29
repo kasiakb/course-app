@@ -2,7 +2,7 @@ import * as types from '../actions/actionTypes';
 import courseApi from '../api/mockCourseApi';
 
 export function loadCoursesSsuccess(courses) {
-  return { type: types.LOAD_COURSES_SUCCESS, courses}
+  return { type: types.LOAD_COURSES_SUCCESS, courses};
 }
 
 export function createCourseSuccess(course) {
@@ -11,6 +11,10 @@ export function createCourseSuccess(course) {
 
 export function updateCourseSuccess(course) {
   return {type: types.UPDATE_COURSES_SUCCESS, course};
+}
+
+export function deleteCourseSuccess(courseId) {
+  return {type: types.DELETE_COURSES_SUCCESS, courseId};
 }
 
 export function loadCourses() {
@@ -31,5 +35,16 @@ export function saveCourse(course) {
     }).catch(error => {
       throw(error);
     });
+  };
+}
+
+export function deleteCourse(courseId) {
+  return function (dispatch) {
+    dispatch(deleteCourseSuccess(courseId))
+    return courseApi.deleteCourse(courseId)
+      .catch(error => {
+        throw(error);
+      }
+    );
   };
 }

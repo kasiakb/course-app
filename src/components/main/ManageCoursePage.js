@@ -27,6 +27,7 @@ class ManageCoursePage extends Component {
     let course = Object.assign({}, this.state.course);
     course[field] = e.target.value;
     return this.setState({course: course});
+    console.log('up', field)
   }
 
   saveCourse(e) {

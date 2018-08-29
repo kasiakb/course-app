@@ -10,9 +10,9 @@ class CoursesPage extends Component {
     super(props, context);
 
     this.redairectToAddCoursePage = this.redairectToAddCoursePage.bind(this)
+    this.deleteCourses = this.deleteCourses.bind(this)
   }
   
-
   courseRow(course, index) {
     return <div key={index}>{course.title}</div>
   }
@@ -21,8 +21,13 @@ class CoursesPage extends Component {
     this.props.history.push('/course')
   }
 
+  deleteCourses(e) {
+    const courseId = e.target.name;
+    this.props.actions.deleteCourse(courseId)
+  }
 
   render () {
+
     const {courses} = this.props;
     return (
         <div>
@@ -33,7 +38,9 @@ class CoursesPage extends Component {
             className='btn btn-primary'
             onClick={this.redairectToAddCoursePage}
             />
-          <CourseList courses={courses}/>
+          <CourseList
+            courses={courses}
+            deleteCourse={this.deleteCourses}/>
         </div>
     );
   }
