@@ -23,6 +23,12 @@ export default function courseReducer(state = initialState.courses, action) {
         ...state.filter(course => course.id !== action.courseId),
       ]
 
+    case types.COMPLETED_COURSES_SUCCESS:
+      return [
+        ...state.filter(course => course.id !== action.course.id),
+        Object.assign({}, action.course)
+      ];
+
     default:
       return state;
   }

@@ -10,7 +10,8 @@ const courses = [
     watchHref: "http://www.pluralsight.com/courses/react-flux-building-applications",
     authorId: "cory-house",
     length: "5:08",
-    category: "JavaScript"
+    category: "JavaScript",
+    completed: false,
   },
   {
     id: "clean-code",
@@ -18,7 +19,8 @@ const courses = [
     watchHref: "http://www.pluralsight.com/courses/writing-clean-code-humans",
     authorId: "cory-house",
     length: "3:10",
-    category: "Software Practices"
+    category: "Software Practices",
+    completed: true,
   },
   {
     id: "architecture",
@@ -26,7 +28,8 @@ const courses = [
     watchHref: "http://www.pluralsight.com/courses/architecting-applications-dotnet",
     authorId: "cory-house",
     length: "2:52",
-    category: "Software Architecture"
+    category: "Software Architecture",
+    completed: false,
   },
   {
     id: "career-reboot-for-developer-mind",
@@ -34,7 +37,8 @@ const courses = [
     watchHref: "http://www.pluralsight.com/courses/career-reboot-for-developer-mind",
     authorId: "cory-house",
     length: "2:30",
-    category: "Career"
+    category: "Career",
+    completed: true,
   },
   {
     id: "web-components-shadow-dom",
@@ -42,7 +46,8 @@ const courses = [
     watchHref: "http://www.pluralsight.com/courses/web-components-shadow-dom",
     authorId: "cory-house",
     length: "5:10",
-    category: "HTML5"
+    category: "HTML5",
+    completed: false,
   }
 ];
 
@@ -83,6 +88,7 @@ class CourseApi {
           //Cloning so copy returned is passed by value rather than by reference.
           course.id = generateId(course);
           course.watchHref = `http://www.pluralsight.com/courses/${course.id}`;
+          course.completed = false;
           courses.push(course);
         }
 
@@ -102,6 +108,21 @@ class CourseApi {
       }, delay);
     });
   }
+
+  static completedCourse(courseId) {
+    const course = Object.assign({}, courses.filter(elem => elem.id === courseId)[0])
+    // debugger
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        course.completed = !course.completed
+        const completedCourseIndex = courses.findIndex(a => a.id == courseId);
+        courses.splice(completedCourseIndex, 1, course);
+        resolve(course);
+      }, delay);
+    });
+  }
 }
+
+
 
 export default CourseApi;

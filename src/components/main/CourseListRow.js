@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const CourseListRow = ({course, deleteCourse}) => {
+const CourseListRow = ({course, deleteCourse, completedCourse}) => {
+
   return (
     <tr>
       <td><a href={course.watchHref} target="_blank">Watch</a></td>
@@ -16,6 +17,15 @@ const CourseListRow = ({course, deleteCourse}) => {
           value="Delete"
           className='btn btn-primary'
           onClick={deleteCourse}
+        />
+        </td>
+        <td>
+        <input
+          type='submit'
+          name={course.id}
+          value={course.completed ? 'To Repeat' : 'Completed'}
+          className='btn btn-primary'
+          onClick={completedCourse}
         />
         </td>
     </tr>

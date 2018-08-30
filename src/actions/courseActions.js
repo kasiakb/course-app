@@ -17,6 +17,10 @@ export function deleteCourseSuccess(courseId) {
   return {type: types.DELETE_COURSES_SUCCESS, courseId};
 }
 
+export function completedCourseSuccess(course) {
+  return {type: types.COMPLETED_COURSES_SUCCESS, course};
+}
+
 export function loadCourses() {
   return function(dispatch) {
     return courseApi.getAllCourses().then(courses => {
@@ -46,5 +50,15 @@ export function deleteCourse(courseId) {
         throw(error);
       }
     );
+  };
+}
+
+export function completedCourse(courseId) {
+  return function (dispatch) {
+   return courseApi.completedCourse(courseId).then(completedCourse => {
+      dispatch(completedCourseSuccess(completedCourse))
+    }).catch(error => {
+      throw(error);
+    });
   };
 }
