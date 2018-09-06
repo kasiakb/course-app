@@ -4,7 +4,8 @@ import {connect} from "react-redux";
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
 import { BrowserRouter} from 'react-router-dom'
-import FilterButtons from './visibilityFilters/FilterButtons';
+import FilterCompleted from './visibilityFilters/FilterCompleted';
+import FilterCategory from './visibilityFilters/FilterCategory';
 import { VisibilityFilters } from '../../actions/visibilityActions';
 
 class CoursesPage extends Component {
@@ -34,8 +35,9 @@ class CoursesPage extends Component {
     this.props.actions.completedCourse(courseId)
   }
 
-
   render () {
+    console.log('filters',this.props.visibility)
+    console.log('courses',this.props.courses)
     const {courses} = this.props;
     return (
         <div>
@@ -46,7 +48,10 @@ class CoursesPage extends Component {
             className='btn btn-primary'
             onClick={this.redairectToAddCoursePage}
             />
-          <FilterButtons/>
+          <FilterCompleted/>
+          <FilterCategory
+            categories = {this.props.categories}
+          />
           <CourseList
             courses={courses}
             deleteCourse={this.deleteCourses}
@@ -57,9 +62,11 @@ class CoursesPage extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
 
+
+function mapStateToProps(state, ownProps) {
   const getVisibleCourses = (courses, filter) => {
+
     switch (filter) {
       case VisibilityFilters.SHOW_ALL:
         return courses
@@ -72,8 +79,18 @@ function mapStateToProps(state, ownProps) {
     }
   }
 
+  const getVisibleCourses2 = (courses, filter) => {
+    if(filter === 'SHOW_ALL') {
+      return courses
+    } else {
+      return courses.filter(course => course.category === filter)
+    }
+  }
+
   return {
-    courses: getVisibleCourses(state.courses, state.visibility),
+    courses: getVisibleCourses2( getVisibleCourses(state.courses, state.visibility.completed), state.visibility.category),
+    visibility: state.visibility,
+    categories: state.courses.map(course => course.category),
   };
 }
 

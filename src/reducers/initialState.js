@@ -1,4 +1,7 @@
 export default {
   courses: [],
-  visibility: 'SHOW_ALL',
+  visibility: {
+    completed: 'SHOW_ALL',
+    category: 'SHOW_ALL'
+  }
 }

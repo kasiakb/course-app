@@ -1,26 +1,29 @@
 import React from 'react'
-import FilterLink from './FilterLink'
+import FilterButton from './FilterButton'
 import { VisibilityFilters } from '../../../actions/visibilityActions'
 
-const FilterButtons = () => (
+const FilterCompleted = () => (
   <div>
     <h2>Show courses: </h2>
-    <FilterLink
+    <FilterButton
       filter={VisibilityFilters.SHOW_ALL}
+      name="completed"
     >
       All
-    </FilterLink>
-    <FilterLink
+    </FilterButton>
+    <FilterButton
       filter={VisibilityFilters.SHOW_ACTIVE}
+      name="completed"
     >
       To Repeat
-    </FilterLink>
-    <FilterLink
+    </FilterButton>
+    <FilterButton
       filter={VisibilityFilters.SHOW_COMPLETED}
+      name="completed"
     >
       Completed
-    </FilterLink>
+    </FilterButton>
   </div>
 )
 
-export default FilterButtons
+export default FilterCompleted

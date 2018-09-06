@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';
 
-export function setVisibilityFilter(filter) {
-  return {type: types.SET_VISIBILITY_FILTER, filter};
+export function setVisibilityFilter(filter, name) {
+  return {type: types.SET_VISIBILITY_FILTER, filter, name};
 }
 
 export const VisibilityFilters = {
