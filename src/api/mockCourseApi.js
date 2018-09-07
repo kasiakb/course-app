@@ -72,15 +72,9 @@ class CourseApi {
     course = Object.assign({}, course);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const minCourseTitleLength = 1;
-        const urlValidator = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/g
         
-        if (course.title.length < minCourseTitleLength) {
-          reject(`Title must be at least ${minCourseTitleLength} characters.`);
-        } 
-
-        if (urlValidator.test(course.watchHref) === false) {
-          reject(`Course link must contain http:// or https:// protocol.`)
+        if(!course.watchHref.match(/^https?:\/\//i)) {
+          course.watchHref = 'http://' + course.watchHref
         }
 
         if (course.id) {
@@ -111,7 +105,6 @@ class CourseApi {
 
   static completedCourse(courseId) {
     const course = Object.assign({}, courses.filter(elem => elem.id === courseId)[0])
-    // debugger
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         course.completed = !course.completed

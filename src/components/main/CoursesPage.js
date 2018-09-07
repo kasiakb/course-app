@@ -36,8 +36,6 @@ class CoursesPage extends Component {
   }
 
   render () {
-    console.log('filters',this.props.visibility)
-    console.log('courses',this.props.courses)
     const {courses} = this.props;
     return (
         <div>

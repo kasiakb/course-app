@@ -4,7 +4,6 @@ import HomePage from './HomePage';
 import AboutPage from './AboutPage';
 import CoursesPage from './CoursesPage';
 import ManageCoursePage from './ManageCoursePage';
-import CourseForm from './CourseForm';
 
 const Main = () => (
   <main>

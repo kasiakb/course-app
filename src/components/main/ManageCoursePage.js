@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from "react-redux";
 import * as courseActions from '../../actions/courseActions';
-import CourseForm from './CourseForm';
+import FormValidation from './FormValidation'
 
 class ManageCoursePage extends Component {
   constructor (props,context) {
@@ -12,7 +12,6 @@ class ManageCoursePage extends Component {
       errors: {},  
     };
 
-    this.updateCourseState = this.updateCourseState.bind(this);
     this.saveCourse = this.saveCourse.bind(this);
   }
 
@@ -22,28 +21,19 @@ class ManageCoursePage extends Component {
     }
   }
 
-  updateCourseState(e) {
-    const field = e.target.name;
-    let course = Object.assign({}, this.state.course);
-    course[field] = e.target.value;
-    return this.setState({course: course});
-    console.log('up', field)
-  }
+  async saveCourse(values) {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-  saveCourse(e) {
-    e.preventDefault();
-    this.props.actions.saveCourse(this.state.course)
+    await sleep(500);
+    this.props.actions.saveCourse(values)
     this.props.history.push('/courses')
-
   }
 
   render () {
     return (
-      <CourseForm 
-        onChange={this.updateCourseState}
+      <FormValidation
         onSave={this.saveCourse}
-        course={this.state.course}
-        errors={this.state.errors}
+        initialValues={this.state.course}
       />
     );
   }
